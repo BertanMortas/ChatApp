@@ -22,6 +22,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.border.TitledBorder;
 
 public class ClientEnd {
 
@@ -34,6 +37,9 @@ public class ClientEnd {
 	private JLabel lblNewLabel;
 	private JList JuserList ;
 	private JLabel lblSelectedUser ;
+	public JButton btnGonder;
+	public JLabel lblDeneme;
+	private JTable table;
 	
 	
 
@@ -51,6 +57,7 @@ public class ClientEnd {
 				}
 			}
 		});
+	
 		clientConnection();
 	}
 
@@ -85,11 +92,11 @@ public class ClientEnd {
 		frame.getContentPane().setLayout(null);
 		
 		textField = new JTextField();
-		textField.setBounds(251, 52, 353, 67);
+		textField.setBounds(347, 202, 287, 67);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
-		JButton btnGonder = new JButton("Gönder");
+		btnGonder = new JButton("Gönder");
 		btnGonder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//client button
@@ -98,8 +105,8 @@ public class ClientEnd {
 				}
 				else
 				{
+					
 					textArea.setText(textArea.getText()+"\n"+ " Client: "+textField.getText());
-				//	lblSelectedUser.setText(Integer.toString(JuserList.getSelectedIndex()));
 					saveMessagetoDataBase();
 					try {
 						DataOutputStream output = new DataOutputStream(con.getOutputStream());
@@ -118,11 +125,11 @@ public class ClientEnd {
 				
 			}
 		});
-		btnGonder.setBounds(616, 72, 117, 29);
+		btnGonder.setBounds(677, 222, 117, 29);
 		frame.getContentPane().add(btnGonder);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(220, 151, 513, 285);
+		scrollPane.setBounds(346, 281, 448, 285);
 		frame.getContentPane().add(scrollPane);
 		
 		textArea = new JTextArea();
@@ -145,12 +152,31 @@ public class ClientEnd {
 				return values[index];
 			}
 		});
-		JuserList.setBounds(33, 152, 117, 150);
+		JuserList.setBounds(280, 6, 117, 150);
 		frame.getContentPane().add(JuserList);
 		
 		lblSelectedUser = new JLabel("Seçilen kişi:");
-		lblSelectedUser.setBounds(33, 340, 117, 16);
+		lblSelectedUser.setBounds(428, 16, 117, 16);
 		frame.getContentPane().add(lblSelectedUser);
+		
+		lblDeneme = new JLabel("deneme");
+		lblDeneme.setBounds(428, 74, 61, 16);
+		frame.getContentPane().add(lblDeneme);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "chat rewiev", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		panel.setBounds(6, 153, 341, 413);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(6, 20, 329, 387);
+		panel.add(scrollPane_1);
+		
+		table = new JTable();
+		scrollPane_1.setViewportView(table);
+		
+		
 	}
 	// main dışı metodlar
 	
